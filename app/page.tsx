@@ -417,7 +417,7 @@ export default function HomePage() {
                                     </div>
 
                                     <blockquote className="text-gray-600 dark:text-gray-300 mb-6 italic">
-                                        "{testimonial.content}"
+                                        &quot;{testimonial.content}&quot;
                                     </blockquote>
 
                                     <div className="flex items-center justify-center gap-3">

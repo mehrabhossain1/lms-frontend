@@ -49,8 +49,12 @@ export default function LoginPage() {
                     ? "/dashboard/admin"
                     : "/dashboard/student"
             );
-        } catch (err: any) {
-            console.error(err.response?.data?.message || "Login failed");
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                console.error(err.response?.data?.message || "Login failed");
+            } else {
+                console.error("Login failed");
+            }
         }
     };
 
