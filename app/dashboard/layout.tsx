@@ -52,8 +52,6 @@ export default function DashboardLayout({
     return (
         <div className="flex min-h-screen">
             <aside className="w-64 bg-gray-100 p-4 border-r">
-                <h2 className="text-xl font-semibold mb-6">Dashboard</h2>
-
                 <nav className="flex flex-col gap-3">
                     {links.map((link) => (
                         <Link
