@@ -12,7 +12,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star, Users, Clock, BookOpen, Play } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { Navbar } from "@/components/navbar";
 
 // Sample data - replace with your backend data
 const featuredFreeCourses = [
@@ -123,8 +122,6 @@ const testimonials = [
 export default function HomePage() {
     return (
         <div className="min-h-screen bg-background">
-            <Navbar />
-
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-20 lg:py-32">
                 <div className="container mx-auto px-4">

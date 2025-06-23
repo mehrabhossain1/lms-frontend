@@ -31,8 +31,12 @@ export default function LoginPage() {
 
             if (user.role === "admin") router.push("/dashboard/admin");
             else router.push("/dashboard/student");
-        } catch (err: any) {
-            setError(err.response?.data?.message || "Login failed");
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || "Login failed");
+            } else {
+                setError("Login failed");
+            }
         }
     };
 

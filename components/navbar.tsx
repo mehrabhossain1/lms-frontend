@@ -1,14 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useAuth } from "@/store/auth-store";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X, BookOpen } from "lucide-react";
-import Link from "next/link";
 
 export function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [hydrated, setHydrated] = useState(false);
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    const user = useAuth((state) => state.user);
+    const logout = useAuth((state) => state.logout);
+    const router = useRouter();
+
+    useEffect(() => {
+        setHydrated(true); // Ensure Zustand rehydration completes
+    }, []);
+
+    const handleLogout = () => {
+        logout();
+        router.push("/login");
+    };
+
+    if (!hydrated) return null;
+
+    const dashboardPath =
+        user?.role === "admin" ? "/dashboard/admin" : "/dashboard/student";
 
     return (
         <nav className="bg-white dark:bg-gray-900 shadow-sm border-b sticky top-0 z-50">
@@ -24,34 +45,38 @@ export function Navbar() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
-                        <Link
-                            href="/"
-                            className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-                        >
+                        <Link href="/" className="nav-link">
                             Home
                         </Link>
-                        <Link
-                            href="/courses"
-                            className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-                        >
+                        <Link href="/courses" className="nav-link">
                             Courses
                         </Link>
-                        <Link
-                            href="/blogs"
-                            className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-                        >
+                        <Link href="/blogs" className="nav-link">
                             Blogs
                         </Link>
+                        {user && (
+                            <Link href={dashboardPath} className="nav-link">
+                                Dashboard
+                            </Link>
+                        )}
                     </div>
 
                     {/* Desktop Auth Buttons */}
                     <div className="hidden md:flex items-center space-x-4">
-                        <Button variant="ghost" asChild>
-                            <Link href="/login">Login</Link>
-                        </Button>
-                        <Button asChild>
-                            <Link href="/register">Register</Link>
-                        </Button>
+                        {!user ? (
+                            <>
+                                <Button variant="ghost" asChild>
+                                    <Link href="/login">Login</Link>
+                                </Button>
+                                <Button asChild>
+                                    <Link href="/register">Register</Link>
+                                </Button>
+                            </>
+                        ) : (
+                            <Button variant="outline" onClick={handleLogout}>
+                                Logout
+                            </Button>
+                        )}
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -74,47 +99,75 @@ export function Navbar() {
                         <div className="flex flex-col space-y-4">
                             <Link
                                 href="/"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors px-2 py-1"
+                                className="nav-link"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Home
                             </Link>
                             <Link
                                 href="/courses"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors px-2 py-1"
+                                className="nav-link"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Courses
                             </Link>
                             <Link
                                 href="/blogs"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors px-2 py-1"
+                                className="nav-link"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Blogs
                             </Link>
+                            {user && (
+                                <Link
+                                    href={dashboardPath}
+                                    className="nav-link"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Dashboard
+                                </Link>
+                            )}
 
                             <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
-                                <Button
-                                    variant="ghost"
-                                    asChild
-                                    className="justify-start"
-                                >
-                                    <Link
-                                        href="/login"
-                                        onClick={() => setIsMenuOpen(false)}
+                                {!user ? (
+                                    <>
+                                        <Button
+                                            variant="ghost"
+                                            asChild
+                                            className="justify-start"
+                                        >
+                                            <Link
+                                                href="/login"
+                                                onClick={() =>
+                                                    setIsMenuOpen(false)
+                                                }
+                                            >
+                                                Login
+                                            </Link>
+                                        </Button>
+                                        <Button
+                                            asChild
+                                            className="justify-start"
+                                        >
+                                            <Link
+                                                href="/register"
+                                                onClick={() =>
+                                                    setIsMenuOpen(false)
+                                                }
+                                            >
+                                                Register
+                                            </Link>
+                                        </Button>
+                                    </>
+                                ) : (
+                                    <Button
+                                        variant="outline"
+                                        onClick={handleLogout}
+                                        className="justify-start"
                                     >
-                                        Login
-                                    </Link>
-                                </Button>
-                                <Button asChild className="justify-start">
-                                    <Link
-                                        href="/register"
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        Register
-                                    </Link>
-                                </Button>
+                                        Logout
+                                    </Button>
+                                )}
                             </div>
                         </div>
                     </div>
