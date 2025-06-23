@@ -1,3 +1,5 @@
+// @typescript-eslint/no-explicit-any
+
 "use client";
 
 import { useForm } from "react-hook-form";
