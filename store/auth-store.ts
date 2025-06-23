@@ -15,10 +15,8 @@ interface User {
 interface AuthState {
     user: User | null;
     token: string | null;
-    loading: boolean;
     login: (token: string, user: User) => void;
     logout: () => void;
-    setLoading: (loading: boolean) => void;
 }
 
 export const useAuth = create<AuthState>()(
@@ -26,13 +24,11 @@ export const useAuth = create<AuthState>()(
         (set) => ({
             user: null,
             token: null,
-            loading: true,
-            login: (token, user) => set({ user, token, loading: false }),
-            logout: () => set({ user: null, token: null, loading: false }),
-            setLoading: (loading) => set({ loading }),
+            login: (token, user) => set({ token, user }),
+            logout: () => set({ token: null, user: null }),
         }),
         {
-            name: "auth-storage", // localStorage key
+            name: "auth-storage",
         }
     )
 );

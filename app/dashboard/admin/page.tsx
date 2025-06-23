@@ -1,10 +1,8 @@
-// app/dashboard/admin/page.tsx
-import AuthGuard from "@/components/auth-guard";
-
-export default function AdminDashboardPage() {
+export default function AdminDashboard() {
     return (
-        <AuthGuard role="admin">
-            <div className="p-4">Your admin content here</div>
-        </AuthGuard>
+        <div>
+            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+            <p>Only admins can see this.</p>
+        </div>
     );
 }
