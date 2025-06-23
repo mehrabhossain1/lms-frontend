@@ -42,6 +42,23 @@ export default function LoginPage() {
 
     return (
         <main className="min-h-screen flex flex-col items-center justify-center p-4">
+            <div className="mb-4 text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 p-4 rounded w-full max-w-xs">
+                <p className="font-semibold mb-2">🔑 Test Credentials</p>
+                <p>
+                    <strong>Admin:</strong>
+                    <br />
+                    <code>admin@gmail.com</code>
+                    <br />
+                    <code>123456</code>
+                </p>
+                <p className="mt-2">
+                    <strong>Student:</strong>
+                    <br />
+                    <code>student@gmail.com</code>
+                    <br />
+                    <code>123456</code>
+                </p>
+            </div>
             <h1 className="mb-4 text-2xl font-bold">Login</h1>
             <form
                 onSubmit={handleSubmit}
