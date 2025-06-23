@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📘 LearnHub – Online LMS Platform
 
-## Getting Started
+An online Learning Management System (LMS) built with **Next.js 15** and a **Node.js + Express backend**. Users can browse free and paid courses, enroll, and track learning progress. Admins can manage courses, users, and reviews from a role-based dashboard.
 
-First, run the development server:
+## 🔗 Live Links
+
+-   🌐 Frontend: [Vercel Deployment](https://your-vercel-link.vercel.app)
+-   🚀 Backend: [Render API](https://lms-backend-5lk5.onrender.com)
+
+---
+
+## 👤 User Roles
+
+### 🧑 Student
+
+-   Browse all courses (free and paid)
+-   Register and login
+-   Access free content
+-   Enroll in paid courses after registration
+-   Track progress in student dashboard
+
+### 👨‍💼 Admin
+
+-   Secure login
+-   Create, update, delete courses
+-   View student list and reviews
+-   Manage platform content via admin dashboard
+
+---
+
+## ✅ Features Implemented
+
+-   ✅ Authentication (JWT-based)
+-   ✅ Role-based dashboard routing (admin & student)
+-   ✅ Course listing with public/free/paid filter
+-   ✅ Single course detail page
+-   ✅ User registration & login flow
+-   ✅ Zustand for auth state management
+-   ✅ TailwindCSS + shadcn/ui components
+-   ✅ Fully responsive layout
+
+---
+
+## 🛠️ Tech Stack
+
+-   **Frontend**: Next.js 15 (App Router), TypeScript, TailwindCSS, shadcn/ui, Zustand
+-   **Backend**: Node.js, Express, MongoDB
+-   **Auth**: JWT (with role-based protection)
+-   **Deployment**: Vercel (frontend), Render (backend)
+
+---
+
+## ⚙️ Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+lms-frontend/
+├── app/
+│   ├── login/
+│   ├── register/
+│   ├── courses/
+│   └── dashboard/
+│       ├── admin/
+│       └── student/
+├── components/
+│   ├── Navbar.tsx
+│   └── ...
+├── store/
+│   └── auth-store.ts
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Future Improvements (Post-submission)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   Payment integration for paid courses
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   Video hosting via Cloudinary/YouTube embed
 
-## Learn More
+-   Student course progress tracker
 
-To learn more about Next.js, take a look at the following resources:
+-   Review & rating system
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   Admin charts and analytics
