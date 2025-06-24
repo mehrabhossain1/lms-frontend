@@ -1,78 +1,44 @@
-// "use client";
+"use client";
 
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { useAuth } from "@/store/auth-store";
-// import { useRouter } from "next/navigation";
-// import Link from "next/link";
+import { useEffect } from "react";
+import { useCourseStore } from "@/store/courseStore";
 
-// export default function MyCoursesPage() {
-//     const { user, token } = useAuth();
-//     const router = useRouter();
-//     const [courses, setCourses] = useState<any[]>([]);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState("");
+export default function EnrolledCoursesPage() {
+    const { enrolledCourses, fetchEnrolledCourses, loading, error } =
+        useCourseStore();
 
-//     useEffect(() => {
-//         if (!user || user.role !== "student") {
-//             router.replace("/login");
-//         } else {
-//             fetchEnrolledCourses();
-//         }
-//     }, [user]);
+    useEffect(() => {
+        fetchEnrolledCourses();
+    }, [fetchEnrolledCourses]);
 
-//     const fetchEnrolledCourses = async () => {
-//         try {
-//             const res = await axios.get(
-//                 "http://localhost:7001/api/users/enrolled",
-//                 {
-//                     headers: {
-//                         Authorization: `Bearer ${token}`,
-//                     },
-//                 }
-//             );
-//             setCourses(res.data.courses);
-//         } catch (err) {
-//             setError("Failed to fetch enrolled courses");
-//         } finally {
-//             setLoading(false);
-//         }
-//     };
+    return (
+        <main className="p-4 max-w-3xl mx-auto">
+            <h1 className="text-2xl font-bold mb-4">My Enrolled Courses</h1>
 
-//     if (loading) return <p className="p-6">Loading your courses...</p>;
-//     if (error) return <p className="p-6 text-red-600">{error}</p>;
-//     if (!courses.length)
-//         return <p className="p-6">You haven't enrolled in any courses yet.</p>;
+            {loading && <p>Loading...</p>}
+            {error && <p className="text-red-600">{error}</p>}
+            {enrolledCourses.length === 0 && !loading && (
+                <p>You haven't enrolled in any courses yet.</p>
+            )}
 
-//     return (
-//         <main className="p-6">
-//             <h1 className="text-2xl font-bold mb-4">My Enrolled Courses</h1>
-//             <ul className="space-y-4">
-//                 {courses.map((course) => (
-//                     <li
-//                         key={course._id}
-//                         className="border p-4 rounded shadow-sm"
-//                     >
-//                         <h2 className="text-lg font-semibold">
-//                             {course.title}
-//                         </h2>
-//                         <p className="text-sm">{course.description}</p>
-//                         <p className="text-xs text-gray-500 mt-1">
-//                             {course.category}
-//                         </p>
-//                         <Link
-//                             href={`/courses/${course._id}`}
-//                             className="text-blue-600 text-sm underline mt-2 inline-block"
-//                         >
-//                             View Course
-//                         </Link>
-//                     </li>
-//                 ))}
-//             </ul>
-//         </main>
-//     );
-// }
-
-export default function StudentCourses() {
-    return <div>StudentCourses</div>;
+            <div className="space-y-4">
+                {enrolledCourses.map((course) => (
+                    <div
+                        key={course._id}
+                        className="border p-4 rounded shadow-sm flex flex-col gap-2"
+                    >
+                        <h2 className="text-xl font-semibold">
+                            {course.title}
+                        </h2>
+                        <p>{course.description}</p>
+                        <iframe
+                            src={course.videoUrl}
+                            className="w-full aspect-video mt-2"
+                            allowFullScreen
+                        />
+                    </div>
+                ))}
+            </div>
+        </main>
+    );
 }
