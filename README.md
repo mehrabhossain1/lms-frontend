@@ -4,7 +4,7 @@ An online Learning Management System (LMS) built with **Next.js 15** and a **Nod
 
 ## 🔗 Live Links
 
--   🌐 Frontend: [Vercel Deployment](https://your-vercel-link.vercel.app)
+-   🌐 Frontend: [Vercel Deployment](https://lms-frontend-tawny-two.vercel.app)
 -   🚀 Backend: [Render API](https://lms-backend-5lk5.onrender.com)
 
 ---
